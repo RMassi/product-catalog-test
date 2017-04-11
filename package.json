@@ -1,0 +1,16 @@
+{
+  "name": "product-catalog",
+  "version": "0.0.1",
+  "description": "Case Study Tech from dafiti",
+  "main": "server.js",
+  "scripts": {
+    "runDb": "mongo product-catalog clearDb.js && node ./initDb.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.17.1",
+    "express": "^4.15.2",
+    "mongoose": "^4.9.4"
+  }
+}
