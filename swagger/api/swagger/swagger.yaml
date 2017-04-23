@@ -1,0 +1,205 @@
+swagger: '2.0'
+info:
+  description: This is a sample server for the product-catalog-test from dafiti
+  version: 0.0.1
+  title: Swagger Case Study Tech - product-catalog-test
+  contact:
+    email: renato.massi@gmail.com
+host: 'localhost:3000'
+basePath: /api
+schemes:
+  - http
+tags:
+  - name: products
+  - name: stock
+  - name: cms
+paths:
+  /products:
+    get:
+      tags:
+        - products
+      summary: Retrieves Products
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Product'
+        '400':
+          description: Invalid status value
+    post:
+      tags:
+        - products
+      summary: Inserts or updates a product
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          description: Product to be created/updated
+          required: true
+          schema:
+            $ref: '#/definitions/NewProduct'
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Product'
+        '400':
+          description: Invalid status value
+  '/stock/{sku}/{size}':
+    get:
+      tags:
+        - stock
+      summary: Retrieves stock for a determined product and size
+      produces:
+        - application/json
+      parameters:
+        - in: path
+          name: sku
+          type: string
+          required: true
+        - in: path
+          name: size
+          type: string
+          required: true
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Stock'
+        '400':
+          description: Invalid status value
+    put:
+      tags:
+        - stock
+      summary: Sets stock for a determined product and size
+      produces:
+        - application/json
+      parameters:
+        - in: path
+          name: sku
+          type: string
+          required: true
+        - in: path
+          name: size
+          type: string
+          required: true
+        - in: body
+          name: body
+          description: Product to be created/updated
+          required: true
+          schema:
+            $ref: '#/definitions/Stock'
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Product'
+        '400':
+          description: Invalid status value
+  '/cms/{searchType}/{search}':
+    get:
+      tags:
+        - cms
+      summary: Retrieves Products based on "category" or "sku"
+      produces:
+        - application/json
+      parameters:
+        - in: path
+          name: searchType
+          type: string
+          enum:
+            - sku
+            - category
+          required: true
+        - in: path
+          name: search
+          type: string
+          required: true
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Product'
+        '400':
+          description: Invalid status value
+definitions:
+  NewProduct:
+    type: object
+    properties:
+      sku:
+        type: string
+      price:
+        type: number
+      name:
+        type: string
+      description:
+        type: string
+      size:
+        description: can be an array or single value
+        type: string
+      brand:
+        type: string
+      categories:
+        type: array
+        items:
+          type: string
+      product_image_url:
+        type: string
+      special_price:
+        type: number
+  Product:
+    type: object
+    properties:
+      _id:
+        type: string
+        format: ObjectId
+      sku:
+        type: string
+      price:
+        type: number
+      name:
+        type: string
+      description:
+        type: string
+      size:
+        description: can be an array or single value
+        type: string
+      brand:
+        type: string
+      categories:
+        type: array
+        items:
+          type: string
+      product_image_url:
+        type: string
+      special_price:
+        type: number
+      created_at:
+        type: string
+        format: date-time
+      updated_at:
+        type: string
+        format: date-time
+  Stock:
+    type: object
+    properties:
+      quantity:
+        type: number
+      warehouse:
+        type: string
+externalDocs:
+  description: Find out more about Swagger
+  url: 'http://swagger.io'

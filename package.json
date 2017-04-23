@@ -4,13 +4,19 @@
   "description": "Case Study Tech from dafiti",
   "main": "server.js",
   "scripts": {
-    "runDb": "mongo product-catalog clearDb.js && node ./initDb.js"
+    "runDb": "mongod --dbpath .\\db",
+    "initDb": "mongo product-catalog clearDb.js && node ./initDb.js",
+    "setupSwagger": "cd swagger && npm install",
+    "setupProject": "npm install && npm run setupSwagger",
+    "swagger": "cd swagger && swagger project start"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.17.1",
+    "cors": "^2.8.3",
     "express": "^4.15.2",
+    "lodash": "^4.17.4",
     "mongoose": "^4.9.4"
   }
 }
